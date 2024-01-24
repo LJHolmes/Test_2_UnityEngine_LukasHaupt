@@ -904,6 +904,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AppleScore: 0
+  AppleScoreText: {fileID: 1471083090}
+  AppleScoreMaxText: {fileID: 1796685250}
+  appleMaxScore: 10
   appleList: []
   applePrefab: {fileID: 1890169724323607035, guid: 69ad6c44eb3c4d5488b10c21468904d6,
     type: 3}
@@ -1702,7 +1705,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1226663377}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 592034660}
+        m_TargetAssemblyTypeName: AppleManager, Assembly-CSharp
+        m_MethodName: RestartScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1226663377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1817,6 +1832,11 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 95c91014047c52d4fb24163200be7c55,
         type: 3}
       propertyPath: m_Name
+      value: Basket
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 95c91014047c52d4fb24163200be7c55,
+        type: 3}
+      propertyPath: m_TagString
       value: Basket
       objectReference: {fileID: 0}
     m_RemovedComponents: []

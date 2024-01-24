@@ -1,9 +1,18 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AppleManager: MonoBehaviour
 {
     public int AppleScore = 0;
+
+    public TMP_Text AppleScoreText;
+    public TMP_Text AppleScoreMaxText;
+
+    [SerializeField] private int appleMaxScore = 10;
+
+    private GameObject winScreenPanel;
 
     [SerializeField] private List<GameObject> appleList;
     [SerializeField] private GameObject applePrefab;
@@ -17,7 +26,21 @@ public class AppleManager: MonoBehaviour
     {
         FindApples();
 
+        winScreenPanel = GameObject.Find("WinScreen").transform.GetChild(0).gameObject;
+
+        AppleScoreMaxText.text = appleMaxScore.ToString();
+
         InvokeRepeating("SpawnAppleRandomInLocation", 0, spawnTime);
+    }
+
+    private void Update()
+    {
+        if (AppleScore >= appleMaxScore)
+        {
+            winScreenPanel.SetActive(true);
+        }
+
+        AppleScoreText.text = AppleScore.ToString();
     }
 
     private void SpawnAppleRandomInLocation()
@@ -47,5 +70,10 @@ public class AppleManager: MonoBehaviour
     public void RemoveFromList(GameObject apple)
     {
         appleList.Remove(apple);
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

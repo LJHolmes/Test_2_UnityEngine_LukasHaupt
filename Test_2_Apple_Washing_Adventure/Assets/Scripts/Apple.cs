@@ -3,21 +3,23 @@ using UnityEngine;
 public class Apple : MonoBehaviour
 {
     private AppleManager appleManager;
+    private Water waterScript;
+
     private Renderer rend;
     private Rigidbody rb;
-
-    private Water waterScript;
 
     [SerializeField] private int WashTimer = 1;
     [SerializeField] private bool isCleanable = false;
     [SerializeField] private bool isCleaned = false;
-    [SerializeField] private bool isFinished = false;
 
     void Start()
     {
         appleManager = GameObject.Find("AppleManager").GetComponent<AppleManager>();
-        rend = gameObject.GetComponent<Renderer>();
         waterScript = GameObject.Find("Water").GetComponent<Water>();
+
+        rend = gameObject.GetComponent<Renderer>();
+
+
 
         GetRandomColour();
     }
@@ -26,14 +28,12 @@ public class Apple : MonoBehaviour
     {
         if (isCleanable)
         {
-            if (waterScript.IsWaterClean)
+            if (waterScript.IsWaterClean || !isCleaned)
             {
+                isCleaned = true;
+
                 Invoke("CleanApple", WashTimer);
             }
-        }
-        if (isFinished)
-        {
-            rb.isKinematic = true;
         }
     }
 
@@ -70,8 +70,7 @@ public class Apple : MonoBehaviour
                 // Sound abspielen
 
                 appleManager.AppleScore++;
-
-                isFinished = true;
+                rb.isKinematic = true;
             }
         }
     }
@@ -80,8 +79,6 @@ public class Apple : MonoBehaviour
     {
         rend.material.color = Color.red;
 
-        appleManager.AppleScore++;
-
-        isCleaned = true;
+        //appleManager.AppleScore++;
     }
 }
