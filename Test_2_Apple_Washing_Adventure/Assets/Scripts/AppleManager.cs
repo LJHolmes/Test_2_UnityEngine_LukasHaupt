@@ -1,25 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppleManager
-    : MonoBehaviour
+public class AppleManager: MonoBehaviour
 {
-    public List<GameObject> AppleList;
-    public GameObject ApplePrefab;
+    public int AppleScore = 0;
 
-    public float SpawnTime = 1;
-    public GameObject SpawnLocation;
+    [SerializeField] private List<GameObject> appleList;
+    [SerializeField] private GameObject applePrefab;
+
+    [SerializeField] private GameObject spawnLocation;
+    [SerializeField] private float spawnTime = 1f;
+    [SerializeField] private float spawnRange = 5f;
+
 
     private void Start()
     {
         FindApples();
 
-        InvokeRepeating("SpawnApple", 0, SpawnTime);
+        InvokeRepeating("SpawnAppleRandomInLocation", 0, spawnTime);
     }
 
-    private void SpawnApple()
+    private void SpawnAppleRandomInLocation()
     {
-        GameObject apple = Instantiate(ApplePrefab, SpawnLocation.transform.position, Quaternion.identity);
+        Vector3 randomOffset = new Vector3(Random.Range(-spawnRange, spawnRange), 2.5f, Random.Range(-spawnRange, spawnRange));
+
+        Vector3 spawnPosition = spawnLocation.transform.position + randomOffset;
+
+        GameObject apple = Instantiate(applePrefab, spawnPosition, spawnLocation.transform.rotation);
 
         AddToList(apple);
     }
@@ -34,42 +41,11 @@ public class AppleManager
 
     private void AddToList(GameObject apple)
     {
-        AppleList.Add(apple);
+        appleList.Add(apple);
     }
 
     public void RemoveFromList(GameObject apple)
     {
-        AppleList.Remove(apple);
-    }
-
-    public void Loop()
-    {
-        for (int i = 0; i < AppleList.Count; i++)
-        {
-            for (i = 0; i < AppleList.Count; i++)
-            {
-                GameObject apple = AppleList[i];
-                Renderer renderer = apple.GetComponent<Renderer>();
-
-                if (renderer != null)
-                {
-                    // Change the color randomly
-                    Color randomColor = new Color(Random.value, Random.value, Random.value);
-                    renderer.material.color = randomColor;
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
-
-        foreach (GameObject apple in AppleList)
-        {
-            Vector3 pos = apple.transform.position;
-            Vector3 newPos = new Vector3(0, 2, 0);
-
-            apple.transform.position = pos + newPos;
-        }
+        appleList.Remove(apple);
     }
 }

@@ -78,14 +78,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Apple
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2107920513311945577}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
         type: 3}
       insertIndex: -1
@@ -94,6 +95,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7152541908146508133}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2107920513311945577}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1013177425926551688}
   m_SourcePrefab: {fileID: 100100000, guid: 6d76e45c721b79c4890f7ed384ab3eb2, type: 3}
 --- !u!1 &1890169724323607035 stripped
 GameObject:
@@ -101,19 +110,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1655726558751263914}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2107920513311945577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890169724323607035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4bb7da42f55f04e8cb4cb5ad6e1ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WashTimer: 1
 --- !u!54 &1430935531183779005
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,3 +158,28 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.45558327
   m_Center: {x: 0, y: 0.078135684, z: 0}
+--- !u!114 &2107920513311945577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890169724323607035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4bb7da42f55f04e8cb4cb5ad6e1ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WashTimer: 1
+--- !u!114 &-1013177425926551688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890169724323607035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a574ddf72c1c99145b42678e44dabcee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
