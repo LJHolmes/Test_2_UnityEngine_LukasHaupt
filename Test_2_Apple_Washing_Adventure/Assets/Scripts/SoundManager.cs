@@ -3,15 +3,36 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource AppleWashedSound;
+    public AudioSource WashedScoredSound;
+    public AudioSource CollectedScoreSound;
+
+    public Color SoundOn;
+    public Color SoundOff;
+
+    public Button SoundButton;
 
     public void ToggleSound()
     {
-        AppleWashedSound.mute = !AppleWashedSound.mute;
+        WashedScoredSound.mute = !WashedScoredSound.mute;
+        CollectedScoreSound.mute = !CollectedScoreSound.mute;
+
+        if (WashedScoredSound.mute)
+        {
+            SoundButton.image.color = SoundOff;
+        }
+        else
+        {
+            SoundButton.image.color = SoundOn;
+        }
     }
 
-    public void PlayAppleWashSound()
+    public void PlayWashedScoredSound()
     {
-        AppleWashedSound.Play();
+        WashedScoredSound.Play();
+    }
+
+    public void PlayCollectedScoreSound()
+    {
+        CollectedScoreSound.Play();
     }
 }

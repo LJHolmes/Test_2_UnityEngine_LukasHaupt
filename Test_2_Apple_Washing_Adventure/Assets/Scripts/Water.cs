@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+    private AppleManager appleManager;
+
     [SerializeField] private float dirtTimer = 10f;
 
     private Renderer rend;
@@ -13,6 +15,7 @@ public class Water : MonoBehaviour
 
     void Start()
     {
+        appleManager = GameObject.Find("AppleManager").GetComponent<AppleManager>();
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
 
@@ -31,5 +34,10 @@ public class Water : MonoBehaviour
     {
         rend.material.color = startColour;
         IsWaterClean = true;
+
+        foreach (GameObject apple in appleManager.AppleList)
+        {
+            apple.GetComponent<Apple>().WaterCleaned();
+        }
     }
 }

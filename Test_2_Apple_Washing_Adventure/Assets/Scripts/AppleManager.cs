@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class AppleManager: MonoBehaviour
 {
+    public List<GameObject> AppleList;
+
     public int AppleScore = 0;
     [SerializeField] private int appleMaxScore = 10;
 
     private GameObject winScreenPanel;
-
-    [SerializeField] private List<GameObject> appleList;
     [SerializeField] private List<GameObject> appleInBaskedList;
 
     [SerializeField] private GameObject applePrefab;
@@ -55,20 +55,20 @@ public class AppleManager: MonoBehaviour
 
         GameObject apple = Instantiate(applePrefab, spawnPosition, spawnLocation.transform.rotation);
 
-        AddToList(apple);
+        AddToAppleList(apple);
     }
 
     private void FindApples()
     {
         foreach (GameObject apple in GameObject.FindGameObjectsWithTag("Apple"))
         {
-            AddToList(apple);
+            AddToAppleList(apple);
         }
     }
 
-    private void AddToList(GameObject apple)
+    private void AddToAppleList(GameObject apple)
     {
-        appleList.Add(apple);
+        AppleList.Add(apple);
     }
 
     public void AddToBasketList(GameObject apple)
@@ -76,9 +76,9 @@ public class AppleManager: MonoBehaviour
         appleInBaskedList.Add(apple);
     }
 
-    public void RemoveFromList(GameObject apple)
+    public void RemoveFromAppleList(GameObject apple)
     {
-        appleList.Remove(apple);
+        AppleList.Remove(apple);
     }
 
     public void RestartScene()

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Apple : MonoBehaviour
 {
+    public GameObject OverripeApplePrefab;
+    public GameObject CleanEffectPrefab;
+
     public bool IsInBasked = false;
     public bool IsCleaned = false;
     public bool isGrabbedOnce = false;
@@ -57,19 +60,6 @@ public class Apple : MonoBehaviour
         }
     }
 
-    private void AppleInBasket()
-    {
-        soundManager.PlayAppleWashSound();
-        IsInBasked = true;
-        Debug.Log("Apple in Basket");
-        appleManager.AppleScore++;
-        rb.useGravity = false;
-        rb.isKinematic = true;
-
-        appleManager.RemoveFromList(gameObject);
-        appleManager.AddToBasketList(gameObject);
-    }
-
     System.Collections.IEnumerator CleanApple()
     {
         float endTime = Time.time + washTimer;
@@ -86,10 +76,31 @@ public class Apple : MonoBehaviour
             }
         }
 
-        soundManager.PlayAppleWashSound();
+        soundManager.PlayWashedScoredSound();
+
+        GameObject effect = Instantiate(CleanEffectPrefab, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(effect, 2f);
+
         IsCleaned = true;
         rend.material.color = Color.red;
         appleManager.AppleScore++;
+    }
+
+    private void AppleInBasket()
+    {
+        soundManager.PlayCollectedScoreSound();
+
+        IsInBasked = true;
+
+        Debug.Log("Apple in Basket");
+
+        appleManager.AppleScore++;
+
+        rb.useGravity = false;
+        rb.isKinematic = true;
+
+        appleManager.RemoveFromAppleList(gameObject);
+        appleManager.AddToBasketList(gameObject);
     }
 
     private void OverripeApple()
@@ -99,15 +110,18 @@ public class Apple : MonoBehaviour
             return;
         }
 
-        rb.useGravity = true;
+        appleManager.RemoveFromAppleList(gameObject);
 
-        Invoke("SelfDestruction", washTimer);
-    }
-
-    private void SelfDestruction()
-    {
-        appleManager.RemoveFromList(gameObject);
+        Instantiate(OverripeApplePrefab, gameObject.transform.position, gameObject.transform.rotation);
 
         Destroy(gameObject);
+    }
+
+    public void WaterCleaned()
+    {
+        if (!IsCleaned && isInWater)
+        {
+            StartCoroutine(CleanApple());
+        }
     }
 }

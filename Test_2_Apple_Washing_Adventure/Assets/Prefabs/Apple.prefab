@@ -116,10 +116,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2832373231777291050}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d76e45c721b79c4890f7ed384ab3eb2,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2717815431477611532}
   m_SourcePrefab: {fileID: 100100000, guid: 6d76e45c721b79c4890f7ed384ab3eb2, type: 3}
 --- !u!1 &1890169724323607035 stripped
@@ -188,11 +184,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4bb7da42f55f04e8cb4cb5ad6e1ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OverripeApplePrefab: {fileID: 5141438452218611351, guid: 15f6510609e23e6428e70a2c89b99928,
+    type: 3}
+  CleanEffectPrefab: {fileID: 2722529927820931515, guid: c1ea6f8e11df7c648815bf442532dc03,
+    type: 3}
   IsInBasked: 0
+  IsCleaned: 0
+  isGrabbedOnce: 0
   washTimer: 2
   overripeTime: 10
   isInWater: 0
-  isCleaned: 0
 --- !u!114 &-1013177425926551688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,47 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a574ddf72c1c99145b42678e44dabcee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2832373231777291050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890169724323607035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 0
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - Ground
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 5
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 5d82eb612157cf846bf67968cdb100a7, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
 --- !u!114 &2717815431477611532
 MonoBehaviour:
   m_ObjectHideFlags: 0
