@@ -6,20 +6,21 @@ using UnityEngine.SceneManagement;
 public class AppleManager: MonoBehaviour
 {
     public int AppleScore = 0;
-
-    public TMP_Text AppleScoreText;
-    public TMP_Text AppleScoreMaxText;
-
     [SerializeField] private int appleMaxScore = 10;
 
     private GameObject winScreenPanel;
 
     [SerializeField] private List<GameObject> appleList;
+    [SerializeField] private List<GameObject> appleInBaskedList;
+
     [SerializeField] private GameObject applePrefab;
 
     [SerializeField] private GameObject spawnLocation;
-    [SerializeField] private float spawnTime = 1f;
-    [SerializeField] private float spawnRange = 5f;
+    [SerializeField] private float spawnTime = 2f;
+    [SerializeField] private float spawnRange = 4f;
+
+    private TMP_Text appleScoreText;
+    private TMP_Text appleScoreMaxText;
 
 
     private void Start()
@@ -28,9 +29,12 @@ public class AppleManager: MonoBehaviour
 
         winScreenPanel = GameObject.Find("WinScreen").transform.GetChild(0).gameObject;
 
-        AppleScoreMaxText.text = appleMaxScore.ToString();
+        appleScoreText = GameObject.Find("ScoreValueText").GetComponent<TMP_Text>();
+        appleScoreMaxText = GameObject.Find("ScoreMaxText").GetComponent<TMP_Text>();
 
-        InvokeRepeating("SpawnAppleRandomInLocation", 0, spawnTime);
+        appleScoreMaxText.text = appleMaxScore.ToString();
+
+        InvokeRepeating("SpawnAppleRandomInLocation", spawnTime, spawnTime);
     }
 
     private void Update()
@@ -40,12 +44,12 @@ public class AppleManager: MonoBehaviour
             winScreenPanel.SetActive(true);
         }
 
-        AppleScoreText.text = AppleScore.ToString();
+        appleScoreText.text = AppleScore.ToString();
     }
 
     private void SpawnAppleRandomInLocation()
     {
-        Vector3 randomOffset = new Vector3(Random.Range(-spawnRange, spawnRange), 2.5f, Random.Range(-spawnRange, spawnRange));
+        Vector3 randomOffset = new Vector3(Random.Range(-spawnRange, spawnRange), 3.5f, Random.Range(-spawnRange, spawnRange));
 
         Vector3 spawnPosition = spawnLocation.transform.position + randomOffset;
 
@@ -65,6 +69,11 @@ public class AppleManager: MonoBehaviour
     private void AddToList(GameObject apple)
     {
         appleList.Add(apple);
+    }
+
+    public void AddToBasketList(GameObject apple)
+    {
+        appleInBaskedList.Add(apple);
     }
 
     public void RemoveFromList(GameObject apple)

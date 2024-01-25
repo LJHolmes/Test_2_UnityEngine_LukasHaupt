@@ -16,13 +16,15 @@ public class Water : MonoBehaviour
         rend = GetComponent<Renderer>();
         startColour = rend.material.color;
 
-        InvokeRepeating("WaterGetsDirty", dirtTimer, dirtTimer);
+        Invoke("WaterGetsDirty", dirtTimer);
     }
 
     private void WaterGetsDirty()
     {
         rend.material.color = dirtColour;
         IsWaterClean = false;
+
+        Invoke("WaterGetsDirty", dirtTimer);
     }
 
     private void OnMouseDown()

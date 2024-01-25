@@ -2,39 +2,34 @@ using UnityEngine;
 
 public class Apple : MonoBehaviour
 {
+    public bool IsInBasked = false;
+    public bool IsCleaned = false;
+    public bool isGrabbedOnce = false;
+
     private AppleManager appleManager;
     private Water waterScript;
+    private SoundManager soundManager;
 
     private Renderer rend;
     private Rigidbody rb;
 
-    [SerializeField] private int WashTimer = 1;
-    [SerializeField] private bool isCleanable = false;
-    [SerializeField] private bool isCleaned = false;
+    [SerializeField] private int washTimer = 2;
+    [SerializeField] private int overripeTime = 10;
+    [SerializeField] private bool isInWater = false;
+
 
     void Start()
     {
         appleManager = GameObject.Find("AppleManager").GetComponent<AppleManager>();
         waterScript = GameObject.Find("Water").GetComponent<Water>();
+        soundManager = GameObject.Find("Main Camera").GetComponent<SoundManager>();
 
         rend = gameObject.GetComponent<Renderer>();
-
-
+        rb = gameObject.GetComponent<Rigidbody>();
 
         GetRandomColour();
-    }
 
-    void Update()
-    {
-        if (isCleanable)
-        {
-            if (waterScript.IsWaterClean || !isCleaned)
-            {
-                isCleaned = true;
-
-                Invoke("CleanApple", WashTimer);
-            }
-        }
+        Invoke("OverripeApple", overripeTime);
     }
 
     private void GetRandomColour()
@@ -47,38 +42,72 @@ public class Apple : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Water")
-        {
-            isCleanable = true;
-        }
-        else
-        {
-            isCleanable = false;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Basket")
+        if (other.gameObject.tag == "Water" && !IsCleaned)
         {
-            if (isCleaned)
-            {
-                Debug.Log("Apple in Basket");
+            isInWater = true;
 
-                // Sound abspielen
+            StartCoroutine(CleanApple());
+        }
 
-                appleManager.AppleScore++;
-                rb.isKinematic = true;
-            }
+        if (other.gameObject.tag == "Basket" && IsCleaned && !IsInBasked)
+        {
+            AppleInBasket();
         }
     }
 
-    private void CleanApple()
+    private void AppleInBasket()
     {
-        rend.material.color = Color.red;
+        soundManager.PlayAppleWashSound();
+        IsInBasked = true;
+        Debug.Log("Apple in Basket");
+        appleManager.AppleScore++;
+        rb.useGravity = false;
+        rb.isKinematic = true;
 
-        //appleManager.AppleScore++;
+        appleManager.RemoveFromList(gameObject);
+        appleManager.AddToBasketList(gameObject);
+    }
+
+    System.Collections.IEnumerator CleanApple()
+    {
+        float endTime = Time.time + washTimer;
+
+        while (Time.time < endTime && isInWater)
+        {
+            if (waterScript.IsWaterClean)
+            {
+                yield return null;
+            }
+            else
+            {
+                yield break;
+            }
+        }
+
+        soundManager.PlayAppleWashSound();
+        IsCleaned = true;
+        rend.material.color = Color.red;
+        appleManager.AppleScore++;
+    }
+
+    private void OverripeApple()
+    {
+        if (IsCleaned || isGrabbedOnce)
+        {
+            return;
+        }
+
+        rb.useGravity = true;
+
+        Invoke("SelfDestruction", washTimer);
+    }
+
+    private void SelfDestruction()
+    {
+        appleManager.RemoveFromList(gameObject);
+
+        Destroy(gameObject);
     }
 }
