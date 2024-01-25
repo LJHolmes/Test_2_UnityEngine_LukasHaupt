@@ -39,6 +39,8 @@ public class AppleManager: MonoBehaviour
 
     private void Update()
     {
+        //update texts
+
         if (AppleScore >= appleMaxScore)
         {
             winScreenPanel.SetActive(true);
@@ -49,8 +51,10 @@ public class AppleManager: MonoBehaviour
 
     private void SpawnAppleRandomInLocation()
     {
+        // generate random offset
         Vector3 randomOffset = new Vector3(Random.Range(-spawnRange, spawnRange), 3.5f, Random.Range(-spawnRange, spawnRange));
 
+        // add to the spawn pos
         Vector3 spawnPosition = spawnLocation.transform.position + randomOffset;
 
         GameObject apple = Instantiate(applePrefab, spawnPosition, spawnLocation.transform.rotation);

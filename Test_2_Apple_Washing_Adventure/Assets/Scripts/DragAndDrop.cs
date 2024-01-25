@@ -4,13 +4,13 @@ public class DragAndDrop : MonoBehaviour
 {
     private Vector3 mousePosition;
 
-    private Rigidbody rb;
+    private Rigidbody appleRB;
 
     private Apple appleScript;
 
     private void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+        appleRB = gameObject.GetComponent<Rigidbody>();
         appleScript = gameObject.GetComponent<Apple>();
     }
 
@@ -19,7 +19,7 @@ public class DragAndDrop : MonoBehaviour
         return Camera.main.WorldToScreenPoint(transform.position);
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown() // take object, get mouse Pos
     {
         if (appleScript != null)
         {
@@ -34,7 +34,7 @@ public class DragAndDrop : MonoBehaviour
         mousePosition = Input.mousePosition - GetMousePos();
     }
 
-    private void OnMouseDrag()
+    private void OnMouseDrag() // take object with mouse
     {
         if (appleScript != null)
         {
@@ -47,7 +47,7 @@ public class DragAndDrop : MonoBehaviour
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePosition);
     }
 
-    private void OnMouseUp()
+    private void OnMouseUp() // Drop object
     {
         if (appleScript != null)
         {
@@ -57,7 +57,7 @@ public class DragAndDrop : MonoBehaviour
             }
             if (appleScript.IsCleaned)
             {
-                rb.useGravity = true;
+                appleRB.useGravity = true;
             }
         }
     }

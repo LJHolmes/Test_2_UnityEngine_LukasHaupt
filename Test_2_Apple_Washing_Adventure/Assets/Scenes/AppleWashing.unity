@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62374dcace2565e4e9e8bf0ac95ff342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirtTimer: 15
+  dirtTimer: 12
   startColour: {r: 0.38039216, g: 0.5372549, b: 0.7647059, a: 0.54509807}
   dirtColour: {r: 0.26125845, g: 0.5377358, b: 0.27864257, a: 0.8}
   IsWaterClean: 1

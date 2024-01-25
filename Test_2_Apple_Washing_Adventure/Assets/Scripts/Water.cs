@@ -6,7 +6,7 @@ public class Water : MonoBehaviour
 
     [SerializeField] private float dirtTimer = 10f;
 
-    private Renderer rend;
+    private Renderer waterRend;
 
     [SerializeField] private Color startColour;
     [SerializeField] private Color dirtColour;
@@ -16,23 +16,23 @@ public class Water : MonoBehaviour
     void Start()
     {
         appleManager = GameObject.Find("AppleManager").GetComponent<AppleManager>();
-        rend = GetComponent<Renderer>();
-        startColour = rend.material.color;
+        waterRend = GetComponent<Renderer>();
+        startColour = waterRend.material.color;
 
-        Invoke("WaterGetsDirty", dirtTimer);
+        Invoke("WaterGetsDirty", dirtTimer); // get water dirty
     }
 
     private void WaterGetsDirty()
     {
-        rend.material.color = dirtColour;
+        waterRend.material.color = dirtColour;
         IsWaterClean = false;
-
-        Invoke("WaterGetsDirty", dirtTimer);
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown() // Check all apples in water
     {
-        rend.material.color = startColour;
+        Invoke("WaterGetsDirty", dirtTimer);
+
+        waterRend.material.color = startColour;
         IsWaterClean = true;
 
         foreach (GameObject apple in appleManager.AppleList)

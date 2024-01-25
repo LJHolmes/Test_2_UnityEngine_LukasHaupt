@@ -13,8 +13,8 @@ public class Apple : MonoBehaviour
     private Water waterScript;
     private SoundManager soundManager;
 
-    private Renderer rend;
-    private Rigidbody rb;
+    private Renderer appleRend;
+    private Rigidbody appleRB;
 
     [SerializeField] private int washTimer = 2;
     [SerializeField] private int overripeTime = 10;
@@ -27,8 +27,8 @@ public class Apple : MonoBehaviour
         waterScript = GameObject.Find("Water").GetComponent<Water>();
         soundManager = GameObject.Find("Main Camera").GetComponent<SoundManager>();
 
-        rend = gameObject.GetComponent<Renderer>();
-        rb = gameObject.GetComponent<Rigidbody>();
+        appleRend = gameObject.GetComponent<Renderer>();
+        appleRB = gameObject.GetComponent<Rigidbody>();
 
         GetRandomColour();
 
@@ -37,11 +37,11 @@ public class Apple : MonoBehaviour
 
     private void GetRandomColour()
     {
-        if (rend != null)
+        if (appleRend != null)
         {
-            // Change the color randomly
+            // Change the colour randomly
             Color randomColor = new Color(Random.value, Random.value, Random.value);
-            rend.material.color = randomColor;
+            appleRend.material.color = randomColor;
         }
     }
 
@@ -64,7 +64,7 @@ public class Apple : MonoBehaviour
     {
         float endTime = Time.time + washTimer;
 
-        while (Time.time < endTime && isInWater)
+        while (Time.time < endTime && isInWater) //while time isn't over
         {
             if (waterScript.IsWaterClean)
             {
@@ -76,13 +76,14 @@ public class Apple : MonoBehaviour
             }
         }
 
+        // If time is over and still in water and its clean
         soundManager.PlayWashedScoredSound();
 
         GameObject effect = Instantiate(CleanEffectPrefab, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(effect, 2f);
 
         IsCleaned = true;
-        rend.material.color = Color.red;
+        appleRend.material.color = Color.red;
         appleManager.AppleScore++;
     }
 
@@ -96,8 +97,8 @@ public class Apple : MonoBehaviour
 
         appleManager.AppleScore++;
 
-        rb.useGravity = false;
-        rb.isKinematic = true;
+        appleRB.useGravity = false;
+        appleRB.isKinematic = true;
 
         appleManager.RemoveFromAppleList(gameObject);
         appleManager.AddToBasketList(gameObject);
